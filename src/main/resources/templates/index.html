@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Skyway Open API Demo</title>
+    <style>
+        #box:first-child {
+            text-align: left;
+        }
+
+        #box button:nth-of-type(1) {
+            background: #3f51b5;
+            color: #ffffff;
+        }
+
+        #box button:nth-of-type(1) > a {
+            color: inherit;
+        }
+
+        #box button:nth-of-type(2) {
+            background: #bbbbbb;
+        }
+    </style>
+</head>
+<body>
+
+<div id="box">
+    <div>
+        <h1>Skyway Open API Demo</h1>
+        <button onclick="getDeviceList()">Get Device list</button>
+        <p id="resText"></p>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function getDeviceList() {
+        var url = 'http://localhost:8080/getDeviceList';
+
+        try {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url, true);
+            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // var data = JSON.parse(xhr.responseText);
+                    var div = document.getElementById('resText');
+                    div.innerHTML = xhr.responseText;
+                    console.log(xhr.responseText);
+                }
+            };
+            xhr.send();
+        } catch (e) {
+            console.log('Error: %s', e);
+        }
+    }
+</script>
+</body>
+</html>
